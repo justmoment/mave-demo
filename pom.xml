@@ -16,7 +16,7 @@
 
 
   <build>
-    <finalName>xxx</finalName>
+    <finalName>mave</finalName>
     <plugins>
       <plugin>
         <groupId>org.mybatis.generator</groupId>

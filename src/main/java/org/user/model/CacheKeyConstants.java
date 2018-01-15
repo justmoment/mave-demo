@@ -6,7 +6,9 @@ import lombok.Getter;
 public enum CacheKeyConstants {
 
     SYSTEM_ACLS,
-
+    USER_NAME,
     USER_ACLS;
+
+
 
 }

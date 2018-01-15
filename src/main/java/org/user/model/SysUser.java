@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,6 +28,8 @@ public class SysUser {
     private String valiCode;
 
     private Integer erroCount;
+
+    private Date erroDate;
 
 
 
