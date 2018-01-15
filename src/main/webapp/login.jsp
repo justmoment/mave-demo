@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="${pagecontext.request.getcontextpath}/common/common.jsp"/>
+<script src="${ctx}/js/verifyCode.js"></script>
 
 
 <head>
@@ -17,46 +18,11 @@
     <link href="${ctx}/css/login.css" rel="stylesheet">
 
 
+
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <script>
-        if (window.top !== window.self) {
-            window.top.location = window.location;
-        }
 
-        $(function(){
-           $("#form").validate({
-               submitHandler:function(){
-                   $.post("${ctx}/user/checkLoginNameAndPassoword",$("#form").serialize(),function(data){
-                       if(data.ret){
-                           window.location.href="";
-                       }else{
-                           alert("用户名或密码不正确");
-                       }
-
-                   })
-               },
-               rules:{
-                   loginName:{
-                       remote:{
-                           url:"${ctx}/user/checkLoginName",
-                           dataType:"json",
-                           data:{ loginname:function(){ return $("input[name='loginname']").val() }  }
-                       }
-                   }
-               },
-               messages:{
-                   loginName:"用户名不存在"
-               }
-           })
-            // jQuery.validator().addMethod("login",function(){
-            //
-            //
-            // },"用户名不存在")
-
-        })
-    </script>
 
 </head>
 
@@ -66,10 +32,19 @@
         <div class="col-sm-12">
             <form method="post" id="form">
                 <h4 class="no-margins">登录：</h4>
-                <p class="m-t-md">登录到H+后台主题UI框架</p>
+                <p class="m-t-md">登录到moment后台主题UI框架</p>
                 <input type="text" class="form-control uname" placeholder="用户名" name="loginname"/>
                 <input type="password" class="form-control pword m-b" placeholder="密码" name="password"/>
+
+                <div style="display: none" id="code">
+                <input type="text" name="checkValiCode" style="width: 140px" class="form-control" placeholder="验证码"/>
+                　<div id="v_container" style="width: 100px;height: 30px;position: relative;top: -65px;left: 157px;">
+                　　　　　　　　<canvas id="verifyCanvas" width="100" height="40" style="cursor: pointer;"></canvas></div>
                 <a href="">忘记密码了？</a>
+                <input type="hidden" name="valiCode" id="checkValiCode">
+                </div>
+                <input type="hidden" name="erroCount" id="erroCount" value="0">
+
                 <button class="btn btn-success btn-block" id="login">登录</button>
             </form>
         </div>
@@ -81,5 +56,49 @@
     </div>
 </div>
 </body>
+<script>
 
+    if (window.top !== window.self) {
+        window.top.location = window.location;
+    }
+
+
+    $(function(){
+        $("#form").validate({
+            submitHandler:function(){
+                $.post("${ctx}/user/checkLoginNameAndPassoword",$("#form").serialize(),function(data){
+                    if(data.flag){
+
+                        alert("success")
+                    }else{
+                        $("#erroCount").val(data.erroCount);
+                        if(data.erroCount>2){
+                            $("#code").show();
+                        }
+                        alert(data.message);
+                    }
+                })
+            },
+            rules:{
+                loginname:{
+                    remote:{
+                        url:"${ctx}/user/checkLoginName",
+                        dataType:"json",
+                        data:{ loginname:function(){ return $("input[name='loginname']").val() }  }
+                    }
+                }
+            },
+            messages:{
+                loginname:"用户名不存在"
+            }
+        })
+        // jQuery.validator().addMethod("login",function(){
+        //
+        //
+        // },"用户名不存在")
+        var verifyCode = new GVerify("v_container");
+    })
+
+
+</script>
 </html>

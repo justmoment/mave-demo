@@ -3,6 +3,7 @@ package org.user.controllor;
 import com.google.common.collect.Maps;
 import common.JsonData;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class UserControllor {
 
     }
 
-    @RequestMapping(value = "/checkLoginName",method= RequestMethod.POST)
+    @RequestMapping(value = "/checkLoginName",method= RequestMethod.GET)
     public void checkLoginName(@Param("loginname") String loginname, HttpServletResponse response) throws Exception{
         SysUser sys=this.userService.checkLoginName(loginname);
         if(null==sys){
@@ -47,14 +48,42 @@ public class UserControllor {
 
     @RequestMapping(value = "/checkLoginNameAndPassoword",method= RequestMethod.POST)
     @ResponseBody
-    public Object checkLoginNameAndPassoword(SysUser sysUser,String count){
-        HashMap<Object, Object> objectObjectHashMap = Maps.newHashMap();
-        BeanValidator.check(sysUser);
-        SysUser sys=this.userService.checkLoginNameAndPassoword(sysUser);
-        if(null==sys){
-            return JsonData.success();
+    public Object checkLoginNameAndPassoword(SysUser sysUser){
+        HashMap<Object, Object> map = Maps.newHashMap();
+
+
+        //失败次数太多，冻结账户
+        if(sysUser.getErroCount()>5){
+            //通过redis来操作
+
+
         }
-        return JsonData.fail("用户名或密码不存在");
+
+        if(sysUser.getErroCount()>2){
+            if(!sysUser.getValiCode().equalsIgnoreCase(sysUser.getCheckValiCode())){
+                map.put("flag",false);
+                map.put("erroCount",sysUser.getErroCount());
+                map.put("message","验证码错误");
+                return map;
+            }
+        }
+
+        if(StringUtils.isBlank(sysUser.getLoginname())||StringUtils.isBlank(sysUser.getPassword())){
+            map.put("flag",false);
+            map.put("erroCount",sysUser.getErroCount()+1);
+            map.put("message","用户名或密码不能为空");
+            return map;
+        }
+
+        SysUser sys=this.userService.checkLoginNameAndPassoword(sysUser);
+        if(null!=sys){
+            map.put("flag",true);
+            return map;
+        }
+        map.put("erroCount",sysUser.getErroCount()+1);
+        map.put("flag",false);
+        map.put("message","用户名或密码错误");
+        return map;
     }
 
 

@@ -22,5 +22,13 @@ public class SysUser {
     @Min(value = 1,message = "最小要大于1")
     private String loginMark;
 
+    private String checkValiCode;
+
+    private String valiCode;
+
+    private Integer erroCount;
+
+
+
 
 }

@@ -22,4 +22,8 @@ public class UserService {
     public SysUser checkLoginName(String  loginname) {
         return this.sysUserMapper.checkLoginName(loginname);
     }
+
+    public SysUser checkLoginNameAndPassoword(SysUser sysUser) {
+        return this.sysUserMapper.checkLoginNameAndPassoword(sysUser);
+    }
 }

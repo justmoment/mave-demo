@@ -15,7 +15,7 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -42,7 +42,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:jconsole:1.8.0">
         <CLASSES>
-          <root url="jar://C:/java/jdk1.8.0_101/lib/jconsole.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../jdk/jdk1.8.0_152/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -51,7 +51,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
-          <root url="jar://C:/java/jdk1.8.0_101/lib/tools.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../jdk/jdk1.8.0_152/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

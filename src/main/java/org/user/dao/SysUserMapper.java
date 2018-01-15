@@ -20,4 +20,6 @@ public interface SysUserMapper {
     int updateByPrimaryKey(SysUser record);
 
     SysUser checkLoginName(String  loginname);
+
+    SysUser checkLoginNameAndPassoword(SysUser sysUser);
 }
