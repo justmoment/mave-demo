@@ -71,7 +71,8 @@ public class UserControllor {
                if(sys.getErroCount()>5){
                    long freezingTime = (new Date().getTime() - sys.getErroDate().getTime())/1000;
                    map.put("flag",false);
-                   map.put("message","账号被冻结,还差"+freezingTime/60+"分钟解冻");
+                   map.put("erroCount",sysUser.getErroCount());
+                   map.put("message","账号被冻结,还差"+(120-freezingTime)+"秒解冻");
                    return map;
                }
 
@@ -104,14 +105,20 @@ public class UserControllor {
         map.put("erroCount",sysUser.getErroCount()+1);
         map.put("flag",false);
 
-        if(StringUtils.isNotEmpty(sysCacheService.getFromCache(CacheKeyConstants.USER_NAME,sysUser.getLoginname()))){
-            sysCacheService.saveCache(JsonMapper.obj2String(SysUser.builder().erroCount(0).erroDate(new Date())),120, CacheKeyConstants.USER_NAME,sysUser.getLoginname());
+        if(StringUtils.isBlank(value)){
+            sysCacheService.saveCache(JsonMapper.obj2String(SysUser.builder().erroCount(0).build()),120, CacheKeyConstants.USER_NAME,sysUser.getLoginname());
         }else{
             sysCacheService.incre(CacheKeyConstants.USER_NAME,sysUser.getLoginname());
         }
 
         map.put("message","用户名或密码错误");
         return map;
+    }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public void delOne(){
+        this.sysCacheService.delKey(CacheKeyConstants.USER_NAME,"admin");
     }
 
 

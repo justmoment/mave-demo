@@ -13,6 +13,7 @@ import redis.clients.jedis.ShardedJedis;
 import util.JsonMapper;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -73,6 +74,8 @@ public class SysCacheService {
             if(StringUtils.isNotBlank(value)){
                 SysUser sysUser = JsonMapper.string2Obj(value, new TypeReference<SysUser>() {});
                 sysUser.setErroCount(sysUser.getErroCount()+1);
+                sysUser.setErroDate(new Date());
+                shardedJedis.setex(cacheKey,120,JsonMapper.obj2String(sysUser));
             }
 
         }catch (Exception e){
