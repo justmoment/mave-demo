@@ -93,4 +93,10 @@
     where loginName = #{loginname,jdbcType=VARCHAR}
     AND password=#{password,jdbcType=VARCHAR}
   </select>
+
+  <select id="getAllUser" parameterType="org.user.model.SysUser" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from sys_user
+  </select>
 </mapper>

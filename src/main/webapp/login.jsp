@@ -69,7 +69,7 @@
                 $.post("${ctx}/user/checkLoginNameAndPassoword",$("#form").serialize(),function(data){
                     if(data.flag){
 
-                        alert("success")
+                        window.location.href="${ctx}/user/main";
                     }else{
                         $("#erroCount").val(data.erroCount);
                         if(data.erroCount>2){

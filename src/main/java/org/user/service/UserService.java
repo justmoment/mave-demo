@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.user.dao.SysUserMapper;
 import org.user.model.SysUser;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 @Transactional
 public class UserService {
@@ -25,5 +28,9 @@ public class UserService {
 
     public SysUser checkLoginNameAndPassoword(SysUser sysUser) {
         return this.sysUserMapper.checkLoginNameAndPassoword(sysUser);
+    }
+
+    public List<SysUser> getAllUser(Map map) {
+        return this.sysUserMapper.getAllUser(map);
     }
 }

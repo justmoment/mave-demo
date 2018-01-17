@@ -22,6 +22,9 @@
     <!--</logger>-->
 
     <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+
+    <!--  MyBatis打印sql语句 -->
+    <logger name="org.user.dao" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>

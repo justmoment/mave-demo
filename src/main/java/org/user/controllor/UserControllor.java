@@ -1,5 +1,10 @@
 package org.user.controllor;
 
+import bean.datatables.DatatableOrder;
+import bean.datatables.DatatableRequest;
+import bean.datatables.DatatableResponse;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import common.JsonData;
 import org.apache.commons.collections.MapUtils;
@@ -9,6 +14,7 @@ import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,8 +29,10 @@ import util.JsonMapper;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -119,6 +127,74 @@ public class UserControllor {
     @ResponseBody
     public void delOne(){
         this.sysCacheService.delKey(CacheKeyConstants.USER_NAME,"admin");
+    }
+
+    @RequestMapping("/main")
+    public String main(){
+        return "/common/main";
+    }
+
+    @RequestMapping("/index")
+    public String index(){
+        return "/common/index";
+    }
+
+
+    @RequestMapping("/getAllUserIndex")
+    public Object getAllUserIndex(){
+
+        return "/user/sysUser";
+    }
+
+    @RequestMapping("/getAllUser")
+    @ResponseBody
+    public Object getAllUser(String callback,@RequestBody DatatableRequest request){
+//        PageHelper.startPage(1,2);
+//        List<SysUser> sysUserList=this.userService.getAllUser();
+//        PageInfo<SysUser> sysUserPageInfo = new PageInfo<>(sysUserList);
+//        HashMap hashMap = new HashMap();
+//        hashMap.put("data",sysUserList);
+
+        DatatableResponse<SysUser> response = new DatatableResponse<SysUser>();
+        response.setDraw(request.getDraw());
+        //分页
+        Integer start = request.getStart();
+        Integer length = request.getLength();
+        PageHelper.startPage(start, length);
+        //对应数据库中的列名称
+        String [] columnNames = {"id","loginname","password","login_mark"};
+
+        //排序
+        /*
+         * request.getOrder()中的数据可能如下：
+         * [DatatableOrder [column=0, dir=asc], DatatableOrder [column=2, dir=desc]]
+         * 经过for循环处理后：
+         * [DatatableOrder [column=0, dir=dept_id asc], DatatableOrder [column=2, dir=parent_id desc]]
+         * 此时，orderBy = dept_id asc,dir=parent_id desc
+         * 至此组成完整的sql语句：
+         * select * from tableName
+         * where condition
+         * limit start, length
+         * order by dept_id asc,dir=parent_id desc
+         */
+        for(DatatableOrder order : request.getOrder()) {
+            order.setDir(StringUtils.join(Arrays.asList(columnNames[order.getColumn()], order.getDir()), " "));
+        }
+
+        String orderBy = StringUtils.join(request.getOrder().stream().map(DatatableOrder::getDir).toArray(), ",");
+        PageHelper.orderBy(orderBy);
+
+        List<SysUser> depts = userService.getAllUser(request.getParamMap());
+
+        PageInfo<SysUser> pageInfo = new PageInfo<SysUser>(depts);
+        response.setRecordsTotal((int)pageInfo.getTotal());
+        response.setRecordsFiltered((int)pageInfo.getTotal());
+        response.setData(pageInfo.getList());
+
+
+        String json = JsonMapper.obj2String(response);
+        return callback.concat("(").concat(json).concat(")");
+
     }
 
 
