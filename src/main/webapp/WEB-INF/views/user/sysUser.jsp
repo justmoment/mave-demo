@@ -1,7 +1,7 @@
 
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<jsp:include page="${pagecontext.request.getcontextpath}/common/common.jsp"/>
 <html>
 <head>
 
@@ -19,10 +19,11 @@
         }
 
         $(function() {
-            $("#datatables").click(function() {
+//            $("#datatables").click(function() {
                 var paramMap = {
                     /* deptName : '华北电力大学' */
                 };
+
                 var dataColumns = [
                     {'data':'id'},
                     {'data':'loginname'},
@@ -49,7 +50,7 @@
                 console.log(dataTable);
                 dataTable.initTable(
                     'example',
-                    '/tech-web/datatables/getJsonData4.do',
+                    '${ctx}/user/getAllUser',
                     paramMap,
                     dataColumns,
                     /* dataColumnDefs,  */
@@ -57,7 +58,7 @@
                     callback);
 
             });
-        });
+//        });
 
 
     </script>

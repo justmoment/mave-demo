@@ -148,7 +148,7 @@ public class UserControllor {
 
     @RequestMapping("/getAllUser")
     @ResponseBody
-    public Object getAllUser(String callback,@RequestBody DatatableRequest request){
+    public Object getAllUser(String callback, DatatableRequest request){
 //        PageHelper.startPage(1,2);
 //        List<SysUser> sysUserList=this.userService.getAllUser();
 //        PageInfo<SysUser> sysUserPageInfo = new PageInfo<>(sysUserList);

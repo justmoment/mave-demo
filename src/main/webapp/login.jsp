@@ -16,6 +16,7 @@
     <link href="${ctx}/css/animate.css" rel="stylesheet">
     <link href="${ctx}/css/style.css" rel="stylesheet">
     <link href="${ctx}/css/login.css" rel="stylesheet">
+    <script src="${ctx}/js/plugins/layer/layer.min.js"></script>
 
 
 
@@ -75,7 +76,9 @@
                         if(data.erroCount>2){
                             $("#code").show();
                         }
-                        alert(data.message);
+                    layer.msg(data.message, {
+                        time: 2000 //20s后自动关闭
+                    })
                     }
                 })
             },
