@@ -12,7 +12,7 @@
     id, loginName, password, login_mark, createTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
+    select 
     <include refid="Base_Column_List" />
     from sys_user
     where id = #{id,jdbcType=INTEGER}
@@ -22,10 +22,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.user.model.SysUser" >
-    insert into sys_user (id, loginName, password,
-    login_mark, createTime)
-    values (#{id,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-    #{loginMark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+    insert into sys_user (id, loginName, password, 
+      login_mark, createTime)
+    values (#{id,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{loginMark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.user.model.SysUser" >
     insert into sys_user
@@ -85,9 +85,9 @@
   <update id="updateByPrimaryKey" parameterType="org.user.model.SysUser" >
     update sys_user
     set loginName = #{loginname,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR},
-    login_mark = #{loginMark,jdbcType=VARCHAR},
-    createTime = #{createtime,jdbcType=TIMESTAMP}
+      password = #{password,jdbcType=VARCHAR},
+      login_mark = #{loginMark,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -106,7 +106,7 @@
     AND password=#{password,jdbcType=VARCHAR}
   </select>
 
-  <select id="getAllUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+  <select id="getAllUser" parameterType="org.user.model.SysUser" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     from sys_user

@@ -14,9 +14,9 @@ var dataTable = {
             'serverSide': true,
             "pagingType": "full_numbers",
             "searching":false,
-            "lengthMenu": [ [10,15,20,50,100], [10,15,20,50,100] ],
+            "lengthMenu": [ [5,15,20,50,100], [5,15,20,50,100] ],
             "language": {
-                "url": "language.js"
+                "url": "/js/luaguage.json"
             },
             'ajax' : {
                 'url' : url,
@@ -39,3 +39,13 @@ var dataTable = {
         /*.on( 'draw.dt', callback());*/
     }
 };
+
+var deptMain={
+    edit:function (id) {
+
+
+    },
+    deleteInfo:function (id) {
+
+    }
+}

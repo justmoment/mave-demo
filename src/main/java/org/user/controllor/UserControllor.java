@@ -146,15 +146,9 @@ public class UserControllor {
         return "/user/sysUser";
     }
 
-    @RequestMapping("/getAllUser")
+    @RequestMapping(value = "/getAllUser",method = RequestMethod.POST,produces="application/json; charset=UTF-8")
     @ResponseBody
-    public Object getAllUser(String callback, DatatableRequest request){
-//        PageHelper.startPage(1,2);
-//        List<SysUser> sysUserList=this.userService.getAllUser();
-//        PageInfo<SysUser> sysUserPageInfo = new PageInfo<>(sysUserList);
-//        HashMap hashMap = new HashMap();
-//        hashMap.put("data",sysUserList);
-
+    public Object getAllUser(String callback,@RequestBody DatatableRequest request){
         DatatableResponse<SysUser> response = new DatatableResponse<SysUser>();
         response.setDraw(request.getDraw());
         //分页
@@ -162,7 +156,7 @@ public class UserControllor {
         Integer length = request.getLength();
         PageHelper.startPage(start, length);
         //对应数据库中的列名称
-        String [] columnNames = {"id","loginname","password","login_mark"};
+        String [] columnNames = {"id","loginname","password","login_mark","createTime"};
 
         //排序
         /*
@@ -181,6 +175,7 @@ public class UserControllor {
             order.setDir(StringUtils.join(Arrays.asList(columnNames[order.getColumn()], order.getDir()), " "));
         }
 
+
         String orderBy = StringUtils.join(request.getOrder().stream().map(DatatableOrder::getDir).toArray(), ",");
         PageHelper.orderBy(orderBy);
 
@@ -190,6 +185,7 @@ public class UserControllor {
         response.setRecordsTotal((int)pageInfo.getTotal());
         response.setRecordsFiltered((int)pageInfo.getTotal());
         response.setData(pageInfo.getList());
+
 
 
         String json = JsonMapper.obj2String(response);

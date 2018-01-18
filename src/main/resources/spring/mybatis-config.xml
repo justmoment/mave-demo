@@ -18,6 +18,13 @@
  <plugins>
      <plugin interceptor="com.github.pagehelper.PageHelper">
          <property name="dialect" value="mysql"/>
+         <!--
+                当该参数设置为`true`时，如果`pageSize=0`或者`RowBounds.limit = 0`
+                就会查询出全部的结果（相当于没有执行分页查询，
+                但是返回结果仍然是`Page`类型）
+             -->
+         <property name="pageSizeZero" value="true"/>
+         <property name="reasonable" value="true"/>
      </plugin>
  </plugins>
 

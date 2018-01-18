@@ -1,17 +1,13 @@
 package org.user.model;
 
-import lombok.*;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
+import java.util.Date;
+
 public class SysUser {
     private Integer id;
 
