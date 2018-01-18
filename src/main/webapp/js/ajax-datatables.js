@@ -16,7 +16,7 @@ var dataTable = {
             "searching":false,
             "lengthMenu": [ [10,15,20,50,100], [10,15,20,50,100] ],
             "language": {
-                "url": "js/luaguage.json"
+                "url": "language.js"
             },
             'ajax' : {
                 'url' : url,

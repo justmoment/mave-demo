@@ -94,7 +94,7 @@
     AND password=#{password,jdbcType=VARCHAR}
   </select>
 
-  <select id="getAllUser" parameterType="org.user.model.SysUser" resultMap="BaseResultMap">
+  <select id="getAllUser" parameterType="java.util.Map" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     from sys_user
