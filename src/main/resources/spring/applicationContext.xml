@@ -13,6 +13,8 @@
     </bean>
     <import resource="classpath:redis.xml" />
 
+
+
     <!--<import resource="redis.xml" />-->
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -26,6 +28,9 @@
         <property name="maxWait" value="60000" />
         <property name="filters" value="stat,wall" />
     </bean>
+
+
+
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:spring/mybatis-config.xml" />
@@ -56,5 +61,8 @@
     <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
         <property name="dbType" value="mysql" />
     </bean>
+
+
+
 
 </beans>

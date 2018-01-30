@@ -14,9 +14,14 @@
         <bean class="common.HttpInterceptor" />
     </mvc:interceptors>
 
+    <bean class="common.ApplicationContextHelper" lazy-init="false" />
+
+    <bean class="common.ApplicationInit" lazy-init="false"></bean>
+
     <!-- 启动包扫描功能 -->
-    <context:component-scan base-package="org.user.controllor" />
-    <context:component-scan base-package="org.user.service" />
+    <context:component-scan base-package="org.*.controllor" />
+
+    <context:component-scan base-package="org.*.service" />
 
 
     <mvc:resources location="/js/" mapping="/js/**"/>
@@ -26,7 +31,7 @@
     <!--<mvc:resources location="/assets/" mapping="/assets/**"/>-->
     <!--<mvc:resources location="/ztree/" mapping="/ztree/**"/>-->
 
-    <bean class="common.ApplicationContextHelper" lazy-init="false" />
+
 
     <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />-->
 

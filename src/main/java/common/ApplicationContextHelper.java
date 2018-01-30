@@ -1,17 +1,20 @@
 package common;
 
 import org.springframework.beans.BeansException;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import org.user.model.SysUser;
 
-@Component("applicationContextHelper")
 public class ApplicationContextHelper implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
-    public void setApplicationContext(ApplicationContext context) throws BeansException {
-        applicationContext = context;
+    @Override
+    public void setApplicationContext( ApplicationContext app ) throws BeansException {
+
+        applicationContext = app;
     }
 
     public static <T> T popBean(Class<T> clazz) {
@@ -26,5 +29,12 @@ public class ApplicationContextHelper implements ApplicationContextAware {
             return null;
         }
         return applicationContext.getBean(name, clazz);
+    }
+
+    public static <T> T popBean(String name) {
+        if (applicationContext == null) {
+            return null;
+        }
+        return (T)applicationContext.getBean(name);
     }
 }

@@ -6,11 +6,15 @@ import bean.datatables.DatatableResponse;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
+import common.ApplicationContextHelper;
 import common.JsonData;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.codehaus.jackson.type.TypeReference;
+import org.junit.jupiter.api.Test;
+import org.schedule.dao.ScheduleJobMapper;
+import org.schedule.model.ScheduleJob;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.user.dao.SysUserMapper;
 import org.user.model.CacheKeyConstants;
 import org.user.model.SysUser;
 import org.user.service.SysCacheService;
@@ -192,6 +197,15 @@ public class UserControllor {
         return callback.concat("(").concat(json).concat(")");
 
     }
+
+    @RequestMapping("/de")
+    public void dd(){
+        ScheduleJobMapper scheduleJobMapper = ApplicationContextHelper.popBean(ScheduleJobMapper.class);
+        ScheduleJob scheduleJob = scheduleJobMapper.selectByPrimaryKey("1");
+    }
+
+
+
 
 
 }

@@ -8,26 +8,26 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<!-- 数据库链接URL、用户名、密码 -->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test1?characterEncoding=utf8" userId="root" password="root">  <!-- 2 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test1?characterEncoding=utf8" userId="root" password="123456">  <!-- 2 -->
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!-- 生成模型的包名和位置 --> <!-- 3 -->
-		<javaModelGenerator targetPackage="org.user.model" targetProject="/home/administrator/user/javaProject/mave/mave-demo/generator/sc">
+		<javaModelGenerator targetPackage="org.schedule.model" targetProject="/home/administrator/user/javaProject/mave/mave-demo/generator/sc">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- 生成的映射文件包名和位置 --> <!-- 4 -->
-		<sqlMapGenerator targetPackage="org.user.mapper" targetProject="/home/administrator/user/javaProject/mave/mave-demo/generator/sc">
+		<sqlMapGenerator targetPackage="org.schedule.mapper" targetProject="/home/administrator/user/javaProject/mave/mave-demo/generator/sc">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- 生成DAO的包名和位置 --> <!-- 5 -->
-		<javaClientGenerator type="XMLMAPPER" targetPackage="org.user.dao" targetProject="/home/administrator/user/javaProject/mave/mave-demo/generator/sc">
+		<javaClientGenerator type="XMLMAPPER" targetPackage="org.schedule.dao" targetProject="/home/administrator/user/javaProject/mave/mave-demo/generator/sc">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成那些表(更改tableName和domainObjectName就可以) --><!-- 6 -->
-		<table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="schedule_job" domainObjectName="ScheduleJob" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<!--<table tableName="sys_dept" domainObjectName="SysDept" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />-->
 		<!--<table tableName="sys_acl" domainObjectName="SysAcl" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />-->
 		<!--<table tableName="sys_acl_module" domainObjectName="SysAclModule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />-->
